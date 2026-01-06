@@ -5,16 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SimpleGui03 {
+public class TwoButtons {
     private JFrame frame;
     private JLabel label;
-
-    class ColorListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            frame.repaint();
-        }
-    }
+    private MyDrawPanel panel;
 
     class LabelListener implements ActionListener {
         @Override
@@ -23,26 +17,34 @@ public class SimpleGui03 {
         }
     }
 
+    class ColorListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            panel.changeColor();
+        }
+    }
+
     public static void main(String[] args) {
-        SimpleGui03 gui = new SimpleGui03();
+        TwoButtons gui = new TwoButtons();
         gui.go();
     }
 
     public void go() {
         frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        JButton colorButton = new JButton("Change Color");
-        colorButton.setFont(new Font("Hack", Font.BOLD, 80));
-        colorButton.addActionListener(new ColorListener());
+        panel = new MyDrawPanel();
 
         JButton labelButton = new JButton("Change Label");
         labelButton.setFont(new Font("Hack", Font.BOLD, 20));
         labelButton.addActionListener(new LabelListener());
 
+        JButton colorButton = new JButton("Change Color");
+        colorButton.setFont(new Font("Hack", Font.BOLD, 80));
+        colorButton.addActionListener(new ColorListener());
+
         label = new JLabel("I'm a label");
         label.setFont(new Font("Hack", Font.BOLD, 20));
-        MyDrawPanel panel = new MyDrawPanel();
+
 
         frame.getContentPane().add(BorderLayout.SOUTH, colorButton);
         frame.getContentPane().add(BorderLayout.CENTER, panel);
